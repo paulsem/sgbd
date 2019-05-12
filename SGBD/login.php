@@ -4,22 +4,21 @@ include_once 'Connection.php';
 // Always start this first
 session_start();
 
-if ( ! empty( $_POST ) ) {
-    if ( isset( $_POST['username'] ) && isset( $_POST['password'] ) ) {
-        // Getting submitted user data from database
-        $con = new mysqli($db_host, $db_user, $db_pass, $db_name);
-        $stmt = $con->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt->bind_param('s', $_POST['username']);
-        $stmt->execute();
-        $result = $stmt->get_result();
-    	$user = $result->fetch_object();
-    		
-    	// Verify user password and set $_SESSION
-    	if ( password_verify( $_POST['password'], $user->password ) ) {
-    		$_SESSION['user_id'] = $user->ID;
-    	}
-    }
-}
+$username=$_POST['username'];
+$password=$_POST['password'];
+$pwd =  password_hash("$password", PASSWORD_DEFAULT);
+$_SESSION['login_user']=$username;
+$query = mysqli_query($conn,"SELECT username_student FROM student WHERE username_student='$username' and password_student='$pwd'");
+echo '$query';
+if (mysqli_num_rows($query) != 0)
+    {
+     echo "<script language='javascript' type='text/javascript'> location.href='login_form.html' </script>";   
+      }
+      else
+      {
+          echo "<script type='text/javascript'>alert('User Name Or Password Invalid!')</script>";
+      }
+    
 ?>
             
-    ?>
+    
