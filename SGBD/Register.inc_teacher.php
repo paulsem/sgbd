@@ -9,6 +9,6 @@
         $sql = "INSERT INTO teacher (username_teacher, email_teacher, password_teacher) VALUES ('$username', '$email','$psd')";
         mysqli_query($conn, $sql);
     
-        header("Location: /SGBD/Register_teacher.php?register=success")
+        header("Location: /SGBD/Register_teacher.php?register=success");
             
     ?>
