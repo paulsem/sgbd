@@ -1,10 +1,3 @@
 <?php
-
-$dbServername = "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dbName = "sgbd";
-
-$conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
-
+$conn=oci_connect("Student","STUDENT","localhost/xe");
 ?>
