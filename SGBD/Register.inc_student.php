@@ -14,17 +14,11 @@
             header("Location: /SGBD/Register_student.php?register=empty");
             exit();
         }else {
-            $sql = "INSERT INTO student (username_student, email_student, password_student, year_student, group_student) VALUES ('" . $username . "', '" . $email . "','" . $psd . "','" . $year . "','" . $group . "')";
+            $sql = "INSERT INTO student (username_student, email_student, password_student, year_student, group_student) VALUES ('$username', '$email','$psd','$year','$group')";
+        mysqli_query($conn, $sql);
             
-       // mysqli_query($conn, $sql);
-             $compiled = oci_parse($conn,$sql);
-             $r = oci_execute($compiled);
-            
-            $sql_prez = "INSERT INTO prezence (username, prezence) VALUES ('" . $username_prezence . "', '" . $prezence . "')";
-       // mysqli_query($conn, $sql_prez);
-        $compiled = oci_parse($conn,$sql_prez);
-        $r = oci_execute($compiled);
-        oci_rollback($conn);
+            $sql_prez = "INSERT INTO prezence (username, prezence) VALUES ('$username_prezence', '$prezence')";
+        mysqli_query($conn, $sql_prez);
     
         header("Location: /SGBD/Register_student.php?register=success");
             

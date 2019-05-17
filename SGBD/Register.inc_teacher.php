@@ -6,18 +6,9 @@
        $password = $_POST['password']; 
        $psd =  password_hash("$password", PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO teacher (username_teacher, email_teacher, password_teacher) VALUES ('" . $username . "', '" . $email . "','" . $psd . "')";
-
-        
-        //mysqli_query($conn, $sql);
-        $compiled = oci_parse($conn,$sql);
-
-        $r = oci_execute($compiled);
-        
-        oci_rollback($conn);
+        $sql = "INSERT INTO teacher (username_teacher, email_teacher, password_teacher) VALUES ('$username', '$email','$psd')";
+        mysqli_query($conn, $sql);
+    
         header("Location: /SGBD/Register_teacher.php?register=success");
-
+            
     ?>
-
-
-//
