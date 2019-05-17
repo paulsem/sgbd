@@ -1,0 +1,68 @@
+--drop table teacher;
+--/
+--create table teacher(
+--id_teacher int primary key,
+--username_teacher varchar2(40),
+--email_teacher varchar2(40),
+--password_teacher varchar2(100)
+--);
+--drop table student;
+--/
+--create table student(
+--id_student int primary key,
+--username_student varchar2(40),
+--password_teacher varchar2(100),
+--email_student varchar2(40),
+--year_student number(2),
+--group_student varchar2(2)
+--);
+--
+--drop table prezence;
+--
+--create table prezence(
+--id int primary key,
+--username varchar2(40),
+--prezence number(2)
+--);
+--
+--create or replace trigger teacher_auto_id
+--before insert on teacher
+--for each row
+--declare
+--    v_max_id teacher.id_teacher%type;
+--begin
+--    select max(id_teacher) into v_max_id from teacher;
+--    if (v_max_id is null) then
+--        :NEW.id_teacher := 0;
+--    else
+--        :NEW.id_teacher := v_max_id + 1;
+--    end if;
+--end;
+--
+--create or replace trigger student_auto_id
+--before insert on student
+--for each row
+--declare
+--    v_max_id student.id_student%type;
+--begin
+--    select max(id_student) into v_max_id from student;
+--    if (v_max_id is null) then
+--        :NEW.id_student := 0;
+--    else
+--        :NEW.id_student := v_max_id + 1;
+--    end if;
+--end;
+
+--create or replace trigger prezence_auto_id
+--before insert on prezence
+--for each row
+--declare
+--    v_max_id prezence.id%type;
+--begin
+--    select max(id) into v_max_id from prezence;
+--    if (v_max_id is null) then
+--        :NEW.id := 0;
+--    else
+--        :NEW.id := v_max_id + 1;
+--    end if;
+--end;
