@@ -23,6 +23,7 @@ input {
     border: 3px solid #0083bf;
     width: 60%;
     height: 40px;
+    font-size: 20px;
 }
 
 .box {
