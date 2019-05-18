@@ -9,16 +9,18 @@
         $year = $_POST['year'];
         $group = $_POST['group'];
         $prezence = 0;
-
+        $x=0;
         if(empty($username)||empty($email)||empty($password)||empty($year)||empty($group)){
             header("Location: /SGBD/Register_student.php?register=empty");
             exit();
         }else {
-            $sql = "INSERT INTO student (username_student, email_student, password_student, year_student, group_student) VALUES ('" . $username . "', '" . $email . "','" . $psd . "','" . $year . "','" . $group . "')";
+           
+            $sql = "INSERT INTO student (username_student, email_student, password_student, year_student, group_student, prezence_status) VALUES ('" . $username . "', '" . $email . "','" . $psd . "','" . $year . "','" . $group . "','" . $x . "')";
             
        // mysqli_query($conn, $sql);
         $compiled = oci_parse($conn,$sql);
         $r = oci_execute($compiled);
+        oci_rollback($conn);
         
          $sql_prez = "INSERT INTO prezence (username, prezence) VALUES ('" . $username_prezence . "', '" . $prezence . "')";
        // mysqli_query($conn, $sql_prez);
