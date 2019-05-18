@@ -8,6 +8,8 @@ if(isset($_POST['submit'])){
     
     $username = $_POST['username'];
     $pwd=$_POST['pwd'];
+    $grupa=$_POST['grupa'];
+    $_SESSION['t_grupa']=$grupa;
     
     if(empty($username)||empty($pwd)){
         header("Location: /SGBD/Login_teacher.php?login=empty");
@@ -17,7 +19,7 @@ if(isset($_POST['submit'])){
         
         $result = oci_parse($conn,$sql);            
         oci_execute($result);
-        
+        //oci_rollback($conn);
         if(!$result){
              header("Location: /SGBD/Login_teacher.php?login=error");
              exit();
@@ -35,8 +37,11 @@ if(isset($_POST['submit'])){
                     exit();
                 }
             }
+            oci_free_statement($result);
+            oci_close($conn);
         }
     }
+   
     
 }else {
     header("Location: /SGBD/Login_teacher.php?login=error");
