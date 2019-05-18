@@ -30,8 +30,11 @@ session_start();
                 <br>
                 <label>Password:</label><br>
                 <input type="password" name="pwd">
+                    
                 <br>
-                <br>
+                 <label>Grupa:</label><br>
+                <input type="test" name="grupa">
+                <br><br>
                 <button type="submit" name="submit">Login</button>
             </form>
         </div>
