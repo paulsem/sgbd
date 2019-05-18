@@ -1,24 +1,12 @@
-<?php 
-include 'Connection.php';
+<?php
+include 'Connection.php';  
 
-$select_stmt = "select username_student from student"; 
-
-$stid = oci_parse($conn, $select_stmt); 
-oci_execute($stid); 
-
-echo "<table border='1'>\n"; 
-
-while ($row = oci_fetch_assoc($stid)) { 
-    echo "<tr>\n"; 
-    echo "<td>". $row['USERNAME_STUDENT'] . "</td>\n"; 
-    echo "</tr>\n"; 
-    //var_dump($row);
-} 
-
-
-
-echo "</table>\n"; 
-
-oci_free_statement($stid); 
-oci_close($conn); 
-?> 
+$update = "update student SET prezence_status='1' WHERE group_student='e1'";
+$stmt = oci_parse($conn, $update);
+$result = oci_execute($stmt, OCI_COMMIT_ON_SUCCESS );
+//oci_commit($result);
+//var_dump($stmt);
+if (!$result) {
+  echo oci_error();   
+}
+?>
