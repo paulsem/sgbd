@@ -49,6 +49,8 @@ if(isset($_POST['submit'])){
                 }
 
             }
+            oci_free_statement($result);
+            oci_close($conn);
         }
 }
 
