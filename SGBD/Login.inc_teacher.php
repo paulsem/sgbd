@@ -10,6 +10,7 @@ if(isset($_POST['submit'])){
     $pwd=$_POST['pwd'];
     $grupa=$_POST['grupa'];
     $_SESSION['t_grupa']=$grupa;
+    $_SESSION['t_an']=$_POST['an'];
     
     if(empty($username)||empty($pwd)){
         header("Location: /SGBD/Login_teacher.php?login=empty");
