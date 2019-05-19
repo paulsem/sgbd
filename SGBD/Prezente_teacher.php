@@ -25,7 +25,7 @@ function myFunction() {
                     <?php
                         session_start();
                         echo "<h1>Welcome ".$_SESSION['t_username']."</h1>";
-                    echo "<h1>Welcome ".$_SESSION['t_grupa']."</h1>";
+                    echo "<h1>GRUPA ".$_SESSION['t_grupa']."</h1>";
                     $x=$_SESSION['t_grupa'];
                     ?>
                      <form action="open.php" method="post">
@@ -86,13 +86,25 @@ from prezence p inner join student s on p.username = s.username_student where s.
                         
                         echo '<h2>'.$row2['MIN(P.PREZENCE)'].'</h2>';
                         }
-                        oci_commit($conn)
+                        oci_commit($conn);
                         ?>
                         <!--<h2>1/10 - username</h2>-->
                     </div>
                     <div class="box3">
                         <h2>Prez la ora</h2>
-                        <h2>21 - students</h2>
+                        
+                        <?php 
+                        $sql2 = "select count(*) from prezence where data >= (sysdate-2/24)";
+                        
+                        $result2 = oci_parse($conn,$sql2);            
+                        oci_execute($result2);
+                        
+                        if($row2=oci_fetch_assoc($result2)){
+                        
+                        echo '<h2>'.$row2['COUNT(*)'].'</h2>';
+                        }
+                        oci_commit($conn);
+                        ?>                     
                     </div>
                     <div class="box3">
                         <h2>ceva...</h2>
@@ -125,7 +137,8 @@ from prezence p inner join student s on p.username = s.username_student where s.
                             <th>ID</th>
                             <th>Username</th>
                             <th>prezente</th>
-                            <th>procentaj</th>
+                            <th>points</th>
+                            <th>add points</th>
                         </tr>
                     <?php
                     while ($row = oci_fetch_assoc($result)) { 
@@ -140,9 +153,18 @@ from prezence p inner join student s on p.username = s.username_student where s.
                         if($row1 = oci_fetch_assoc($result1)){
                         
                             echo "<td>". $row1["PREZENCE"] . "</td>\n";
+                            echo "<td>". $row1["POINTS"] . "</td>\n";
                         }
-                        echo "<td>". $row["PREZENCE_STATUS"] . "</td>\n"; 
-                        echo "</tr>\n"; 
+                        /*echo "<td>". $row["PREZENCE_STATUS"] . "</td>\n"; */
+                        echo "</tr>\n"; ?>
+                        <td>
+                            <form method="post" action="add_points.php"> 
+                                <input type="hidden" name="hidden"  value="<?php echo $row['USERNAME_STUDENT'];?>">
+                                
+                                <input type="submit" name="submit" value="+">
+                            </form>
+                        </td>
+                <?php
 }     
                         oci_commit($conn)
                     ?>
