@@ -30,7 +30,9 @@ session_start();
                 <br>
                 <label>Password:</label><br>
                 <input type="password" name="pwd">
-                    
+                <br>
+                 <label>An:</label><br>
+                <input type="test" name="an">
                 <br>
                  <label>Grupa:</label><br>
                 <input type="test" name="grupa">
