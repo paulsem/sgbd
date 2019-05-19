@@ -29,7 +29,10 @@
                                 echo '<form  action="" method="post">
                               <input type="submit" name="s1">
                                 </form>';
-                            }
+                                $update = "update student SET prezence_status='0' WHERE username_student='$x'";
+                                $stmt = oci_parse($conn, $update);
+                                $result = oci_execute($stmt, OCI_COMMIT_ON_SUCCESS );
+                                }
                             
                         if(isset($_POST['s1']))
                         {
@@ -37,9 +40,7 @@
                             $stmt1 = oci_parse($conn, $update1);
                             $result1 = oci_execute($stmt1, OCI_COMMIT_ON_SUCCESS );
         
-                            $update = "update student SET prezence_status='0' WHERE username_student='$x'";
-                            $stmt = oci_parse($conn, $update);
-                            $result = oci_execute($stmt, OCI_COMMIT_ON_SUCCESS );
+                            
                         }
                     }
                     ?>
@@ -58,22 +59,24 @@
                     <div class="box3">
                         <h2>Prez</h2>
                         <?php
-                        $sql1="SELECT prezence FROM prezence WHERE username = '$x'";
+                        $sql1="SELECT * FROM prezence WHERE username = '$x'";
                         $result1 = oci_parse($conn,$sql1);            
                         oci_execute($result1);
                         
                         if($row=oci_fetch_assoc($result1)){
                             echo '<h2>'. $row['PREZENCE'].'</h2>';
-                        }
-                        oci_commit($conn);
+                        
                         ?>
                         <!--<h2>5/10 </h2>-->
                     </div>
                     <div class="box3">
                         <h2>Points</h2>
-                        <h2>20 </h2>
+                        <h2><?php echo $row['POINTS'] ?></h2>
                     </div>
-                   
+                   <?php
+                        oci_commit($conn);
+                        }
+                    ?>
 
                 </div>
             </div>   
