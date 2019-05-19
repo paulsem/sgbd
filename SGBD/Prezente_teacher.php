@@ -27,14 +27,15 @@ function myFunction() {
                         echo "<h1>Welcome ".$_SESSION['t_username']."</h1>";
                     echo "<h1>GRUPA ".$_SESSION['t_grupa']."</h1>";
                     $x=$_SESSION['t_grupa'];
+                    $an=$_SESSION['t_an'];
                     ?>
                      <form action="open.php" method="post">
-                        
+                          <input type="hidden" name="hidden"  value="<?php echo $x;?>">
                          <input name="submit" type="submit" value="open">
                     </form>
                     <br>
                     <form action="close.php" method="post">
-                        
+                          <input type="hidden" name="hidden"  value="<?php echo $x;?>">
                          <input name="submit" type="submit" value="close">
                     </form>
                    <br>
@@ -56,7 +57,7 @@ function myFunction() {
                         <?php
                         
                         $sql3 = "select MAX( p.prezence )
-from prezence p inner join student s on p.username = s.username_student where lower(s.group_student)='$x'";
+from prezence p inner join student s on p.username = s.username_student where lower(s.group_student)='$x' and year_student='$an'";
                         
                         $result3 = oci_parse($conn,$sql3);            
                         oci_execute($result3);
@@ -88,7 +89,7 @@ from prezence p inner join student s on p.username = s.username_student where lo
                         <?php
                         
                         $sql2 = "select MIN( p.prezence )
-from prezence p inner join student s on p.username = s.username_student where lower(s.group_student)='$x'";
+from prezence p inner join student s on p.username = s.username_student where lower(s.group_student)='$x' and year_student='$an'";
                         
                         $result2 = oci_parse($conn,$sql2);            
                         oci_execute($result2);
@@ -118,7 +119,7 @@ from prezence p inner join student s on p.username = s.username_student where lo
                         
                         <?php 
                         $sql2 = "select count(*)
-from prezence p inner join student s on p.username = s.username_student where lower(s.group_student)='$x'";
+from prezence p inner join student s on p.username = s.username_student where lower(s.group_student)='$x' and year_student='$an'";
                         
                         $result2 = oci_parse($conn,$sql2);            
                         oci_execute($result2);
@@ -141,7 +142,7 @@ from prezence p inner join student s on p.username = s.username_student where lo
 <br>
             <?php
            
-            $sql = "SELECT * FROM student WHERE lower(group_student) = '$x'";
+            $sql = "SELECT * FROM student WHERE lower(group_student) = '$x' and year_student='$an'";
             $result = oci_parse($conn,$sql);            
             oci_execute($result);
             if(!$result){
@@ -163,7 +164,7 @@ from prezence p inner join student s on p.username = s.username_student where lo
                             <th>prezente</th>
                             <th>points</th>
                             <th>add/remove points</th>
-                        <th>remove prezence</th>
+                            <th>remove prezence</th>
                         </tr>
                     <?php
                     while ($row = oci_fetch_assoc($result)) { 
@@ -186,12 +187,12 @@ from prezence p inner join student s on p.username = s.username_student where lo
                             <form method="post" action="add_points.php"> 
                                 <input type="hidden" name="hidden"  value="<?php echo $row['USERNAME_STUDENT'];?>">
                                 
-                                <input type="submit" name="submit" value="+">
+                                <input style="display: inline-block;" type="submit" name="submit" value="+">
                             </form>
                             <form method="post" action="remove_points.php"> 
                                 <input type="hidden" name="hidden"  value="<?php echo $row['USERNAME_STUDENT'];?>">
                                 
-                                <input type="submit" name="submit" value="-">
+                                <input style="display: inline-block;" type="submit" name="submit" value="-">
                             </form>
                         </td>
                         <td>
